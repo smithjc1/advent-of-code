@@ -39,7 +39,6 @@ fn main() {
 
 fn parse_configs(args: &[String]) -> &str {
     let file_path = &args[1];
-
     file_path
 }
 
