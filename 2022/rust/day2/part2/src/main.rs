@@ -1,7 +1,5 @@
 use std::fs;
 use std::env;
-use csv::ReaderBuilder;
-use std::error::Error;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -21,10 +19,10 @@ fn parse_configs(args: &[String]) -> &str {
 }
 
 fn shoot(opponent_hand: &str, expected_result: &str) -> i32 {
-    let mut opponent_value = 0;
+    let opponent_value :i32;
     let mut my_value = 0;
     let mut score=0;
-    let mut my_hand :char;
+    let my_hand :char;
 
     // Rock
     if opponent_hand == "A" {
