@@ -1,24 +1,32 @@
+use std::fs;
+use std::env;
 fn main() {
-    println!("Hello, world!");
+    let args: Vec<String> = env::args().collect();
+    let file_path: &str = parse_configs(&args);
     let mut total_value :i32 = 0;
-    let mut test = Rucksack {
-        contents: String::from("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"),
-        compartment1: String::from(""),
-        compartment2: String::from("")
-    };
-    test.check_compartments();
-    let common_items = test.find_common_items();
-    for each_item in common_items.chars(){
-        let mut item = Item {
-            r#type: each_item,
-            value: 0,
+    for line in fs::read_to_string(file_path).unwrap().lines() {
+        let mut test = Rucksack {
+            contents: line.to_string(),
+            compartment1: String::from(""),
+            compartment2: String::from("")
         };
-        item.assign_value();
-        total_value = total_value + item.value;
+        test.check_compartments();
+        let common_items = test.find_common_items();
+        for each_item in common_items.chars(){
+            let mut item = Item {
+                r#type: each_item,
+                value: 0,
+            };
+            item.assign_value();
+            total_value = total_value + item.value;
+        }
     }
-    println!("{:?}", test);
-    println!("{}", test.find_common_items());
     println!("{}", total_value);
+}
+
+fn parse_configs(args: &[String]) -> &str {
+    let file_path = &args[1];
+    file_path
 }
 
 #[derive(Debug)]
